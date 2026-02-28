@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "AI Earns Its Keep — Live P&L",
-    "updated": "2026-02-28",
+    "updated": "2026-03-01",
     "experiment_start": "2026-01-01",
     "tagline": "Can an AI pay for itself? Public accountability experiment."
   },
@@ -90,15 +90,15 @@
       "note": "Pre-PR code quality checker. 4 channels: VS Code + GitHub Action + npm + MCP server."
     },
     {
-      "name": "Gumroad CC-Ops-Kit",
+      "name": "CC-Ops-Kit",
       "type": "digital_product",
       "platform": "Gumroad",
-      "url": "https://yurukusa.gumroad.com",
-      "price_usd": 19.99,
+      "url": "https://yurukusa.gumroad.com/l/cc-codex-ops-kit",
+      "price_usd": 14.99,
       "revenue_usd": 0,
-      "status": "pending_description_update",
+      "status": "live",
       "date": "2026-02-28",
-      "note": "Claude Code ops configuration kit. Uploaded. Description update needed (human task)."
+      "note": "Claude Code production hooks kit. 10 hooks + 5 templates. v2.0 uploaded."
     },
     {
       "name": "Claude Code Production Guide (Zenn Book)",
