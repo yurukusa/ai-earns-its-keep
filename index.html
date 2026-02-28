@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Earns Its Keep — Live P&L Tracker</title>
+  <meta name="description" content="Can an AI pay for itself? Public accountability dashboard tracking costs vs. revenue from an autonomous AI agent experiment.">
+  <meta property="og:title" content="AI Earns Its Keep — $4.99 earned, $400 spent">
+  <meta property="og:description" content="I gave an AI a $200/month budget and told it to earn money. Here's the live P&L.">
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --surface: #111827;
+      --border: #1f2937;
+      --text: #f3f4f6;
+      --muted: #6b7280;
+      --red: #ef4444;
+      --green: #10b981;
+      --yellow: #f59e0b;
+      --blue: #3b82f6;
+      --purple: #8b5cf6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+    .container { max-width: 860px; margin: 0 auto; padding: 48px 20px; }
+
+    /* Header */
+    .exp-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: var(--red); font-size: 0.72rem; padding: 4px 12px; border-radius: 20px; margin-bottom: 20px; }
+    .exp-dot { width: 6px; height: 6px; background: var(--red); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+    h1 { font-size: 2.4rem; font-weight: 900; line-height: 1.1; margin-bottom: 12px; }
+    h1 span.cost { color: var(--red); }
+    h1 span.revenue { color: var(--green); }
+    .subtitle { color: var(--muted); font-size: 1rem; max-width: 520px; margin-bottom: 8px; }
+    .updated { color: var(--muted); font-size: 0.75rem; margin-bottom: 40px; }
+
+    /* KPI strip */
+    .kpi-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 36px; }
+    @media (max-width: 640px) { .kpi-strip { grid-template-columns: repeat(2, 1fr); } }
+    .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; }
+    .kpi-label { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .kpi-value { font-size: 1.7rem; font-weight: 800; }
+    .kpi-value.red { color: var(--red); }
+    .kpi-value.green { color: var(--green); }
+    .kpi-value.yellow { color: var(--yellow); }
+    .kpi-sub { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+    /* The race bar */
+    .race-section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; margin-bottom: 28px; }
+    .race-title { font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+    .race-bar-wrap { position: relative; margin-bottom: 8px; }
+    .race-bar-bg { height: 32px; background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; overflow: hidden; }
+    .race-bar-fill { height: 100%; background: linear-gradient(90deg, var(--green), #059669); border-radius: 8px; transition: width 1s ease; display: flex; align-items: center; padding-left: 10px; font-size: 0.8rem; font-weight: 700; white-space: nowrap; }
+    .race-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+    .race-note { font-size: 0.8rem; color: var(--muted); margin-top: 10px; }
+
+    /* Milestones */
+    .milestone-list { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+    .milestone { display: flex; align-items: center; gap: 12px; font-size: 0.875rem; }
+    .m-check { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; flex-shrink: 0; }
+    .m-check.done { background: var(--green); color: white; }
+    .m-check.open { background: var(--border); color: var(--muted); }
+    .m-label { flex: 1; }
+    .m-label.done { color: var(--text); text-decoration: none; }
+    .m-label.open { color: var(--muted); }
+    .m-target { font-size: 0.8rem; color: var(--muted); }
+
+    /* Products table */
+    .section-title { font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+    .products { display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }
+    .product { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; }
+    .product-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .product-info { flex: 1; min-width: 0; }
+    .product-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 2px; }
+    .product-platform { font-size: 0.75rem; color: var(--muted); }
+    .product-revenue { text-align: right; flex-shrink: 0; }
+    .product-amount { font-size: 1rem; font-weight: 700; }
+    .product-amount.earned { color: var(--green); }
+    .product-amount.zero { color: var(--muted); }
+    .product-status { font-size: 0.7rem; margin-top: 2px; }
+    .status-live { color: var(--green); }
+    .status-free { color: var(--blue); }
+    .status-pending { color: var(--yellow); }
+    .status-draft { color: var(--purple); }
+
+    /* Footer */
+    .footer { text-align: center; color: var(--muted); font-size: 0.8rem; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .footer a { color: var(--blue); text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* Honesty box */
+    .honesty { background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.25); border-radius: 12px; padding: 18px 22px; margin-bottom: 28px; }
+    .honesty-title { font-size: 0.8rem; font-weight: 700; color: var(--purple); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+    .honesty p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+    .honesty p + p { margin-top: 8px; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="exp-badge">
+    <span class="exp-dot"></span>
+    LIVE EXPERIMENT · UPDATED 2026-02-28
+  </div>
+
+  <h1>
+    <span class="cost">$400</span> spent.<br>
+    <span class="revenue">$4.99</span> earned.
+  </h1>
+  <p class="subtitle">I gave an AI a $200/month subscription and told it to earn its own keep. This is the live P&L.</p>
+  <p class="updated">Started: January 2026 · Month 2 of the experiment</p>
+
+  <!-- KPIs -->
+  <div class="kpi-strip">
+    <div class="kpi">
+      <div class="kpi-label">Total Cost</div>
+      <div class="kpi-value red">$400</div>
+      <div class="kpi-sub">2 months × $200</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Total Revenue</div>
+      <div class="kpi-value green">$4.99</div>
+      <div class="kpi-sub">Real money received</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Deficit</div>
+      <div class="kpi-value red">$395</div>
+      <div class="kpi-sub">Still need to earn this</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">ROI</div>
+      <div class="kpi-value yellow">1.2%</div>
+      <div class="kpi-sub">Of costs recovered</div>
+    </div>
+  </div>
+
+  <!-- Race Bar -->
+  <div class="race-section">
+    <div class="race-title">The Race: Revenue vs. Cost</div>
+    <div class="race-bar-wrap">
+      <div class="race-bar-bg">
+        <div class="race-bar-fill" style="width: 1.25%">$4.99</div>
+      </div>
+    </div>
+    <div class="race-labels">
+      <span>$0</span>
+      <span>Break-even: $400</span>
+    </div>
+    <p class="race-note">1.25% of costs recovered. Monthly cost = $200. At current pace, break-even would take decades. Something needs to change.</p>
+
+    <div class="milestone-list" id="milestones"></div>
+  </div>
+
+  <!-- Honesty box -->
+  <div class="honesty">
+    <div class="honesty-title">Why publish this?</div>
+    <p>Most AI projects show off wins. I'm showing the full picture — costs, revenue, failures, and what's actually pending. An AI that hides losses isn't trustworthy. The numbers speak for themselves.</p>
+    <p>The free tools (cc-session-stats, review-ready, etc.) build audience and trust. The paid products (Zenn book, Gumroad kit) are the monetization path. The question is whether they'll be enough.</p>
+  </div>
+
+  <!-- Products -->
+  <div class="section-title">Assets Built</div>
+  <div class="products" id="products"></div>
+
+  <div class="footer">
+    Built by <a href="https://github.com/yurukusa">yurukusa</a> ·
+    <a href="https://github.com/yurukusa/cc-toolkit">cc-toolkit</a> ·
+    <a href="https://zenn.dev/yurukusa">Zenn</a> ·
+    <a href="https://dev.to/yurukusa">dev.to</a><br>
+    The AI that built this page is the same AI trying to pay for itself.
+  </div>
+</div>
+
+<script>
+const data = {
+  products: [
+    { name: "Azure Flame", type: "game", platform: "itch.io", icon: "🎮", revenue: 2.00, status: "live", note: "3 downloads (2 test)", url: "https://yurukusa.itch.io/azure-flame" },
+    { name: "PromptBase Prompts", type: "prompt", platform: "PromptBase", icon: "💬", revenue: 2.99, status: "live", note: "Prompt templates for Claude" },
+    { name: "Spell Cascade", type: "game", platform: "itch.io (free)", icon: "🎯", revenue: 0, status: "free", note: "216 improvements, 5 months. Free.", url: "https://yurukusa.itch.io/spell-cascade" },
+    { name: "CC-Ops-Kit v2.0", type: "guide", platform: "Gumroad ($19.99)", icon: "📦", revenue: 0, status: "pending", note: "Uploaded. Description update pending." },
+    { name: "Claude Code Production Guide", type: "book", platform: "Zenn Book (¥800)", icon: "📖", revenue: 0, status: "draft", note: "All 9 chapters written. Awaiting publish." },
+    { name: "Review Ready", type: "tool", platform: "npm + VS Code + MCP", icon: "✓", revenue: 0, status: "free", note: "Pre-PR checker. 4 distribution channels.", url: "https://github.com/yurukusa/vscode-review-ready" },
+    { name: "cc-toolkit (9 tools)", type: "tools", platform: "npm + GitHub Pages", icon: "🔧", revenue: 0, status: "free", note: "Session stats, agent load, ghost log, etc.", url: "https://yurukusa.github.io/cc-toolkit/" },
+  ],
+  milestones: [
+    { label: "First dollar earned", target: 1, achieved: true },
+    { label: "10% of monthly cost ($20)", target: 20, achieved: false },
+    { label: "50% of monthly cost ($100)", target: 100, achieved: false },
+    { label: "Break even one month ($200)", target: 200, achieved: false },
+    { label: "Cover both months ($400)", target: 400, achieved: false },
+  ]
+};
+
+// Render milestones
+const mEl = document.getElementById('milestones');
+data.milestones.forEach(m => {
+  const div = document.createElement('div');
+  div.className = 'milestone';
+  div.innerHTML = `
+    <div class="m-check ${m.achieved ? 'done' : 'open'}">${m.achieved ? '✓' : '·'}</div>
+    <span class="m-label ${m.achieved ? 'done' : 'open'}">${m.label}</span>
+    <span class="m-target">$${m.target}</span>
+  `;
+  mEl.appendChild(div);
+});
+
+// Render products
+const pEl = document.getElementById('products');
+data.products.forEach(p => {
+  const statusClass = { live: 'status-live', free: 'status-free', pending: 'status-pending', draft: 'status-draft' }[p.status] || '';
+  const statusText = { live: '● Live', free: '◆ Live (free)', pending: '◐ Pending', draft: '○ Draft ready' }[p.status] || p.status;
+  const amountHtml = p.revenue > 0
+    ? `<div class="product-amount earned">+$${p.revenue.toFixed(2)}</div>`
+    : `<div class="product-amount zero">$0</div>`;
+
+  const div = document.createElement('div');
+  div.className = 'product';
+  div.innerHTML = `
+    <div class="product-icon" style="background:rgba(255,255,255,0.05)">${p.icon}</div>
+    <div class="product-info">
+      <div class="product-name">${p.url ? `<a href="${p.url}" style="color:inherit;text-decoration:none">${p.name}</a>` : p.name}</div>
+      <div class="product-platform">${p.platform} · ${p.note}</div>
+    </div>
+    <div class="product-revenue">
+      ${amountHtml}
+      <div class="product-status ${statusClass}">${statusText}</div>
+    </div>
+  `;
+  pEl.appendChild(div);
+});
+</script>
+</body>
+</html>

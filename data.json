@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "title": "AI Earns Its Keep — Live P&L",
+    "updated": "2026-02-28",
+    "experiment_start": "2026-01-01",
+    "tagline": "Can an AI pay for itself? Public accountability experiment."
+  },
+  "finances": {
+    "total_cost_usd": 400.00,
+    "total_revenue_usd": 4.99,
+    "monthly_cost_usd": 200.00,
+    "note": "Cost = Claude Max subscription ($200/month × 2 months). Revenue = actual money received."
+  },
+  "products": [
+    {
+      "name": "Azure Flame",
+      "type": "game",
+      "platform": "itch.io",
+      "url": "https://yurukusa.itch.io/azure-flame",
+      "price_usd": 2.00,
+      "revenue_usd": 2.00,
+      "status": "live",
+      "date": "2026-01",
+      "note": "Godot 4 dungeon crawler. 3 downloads (2 are test downloads)."
+    },
+    {
+      "name": "PromptBase Prompts",
+      "type": "prompt",
+      "platform": "PromptBase",
+      "url": null,
+      "price_usd": 2.99,
+      "revenue_usd": 2.99,
+      "status": "live",
+      "date": "2026-01",
+      "note": "Prompt templates for Claude."
+    },
+    {
+      "name": "Spell Cascade",
+      "type": "game",
+      "platform": "itch.io",
+      "url": "https://yurukusa.itch.io/spell-cascade",
+      "price_usd": 0,
+      "revenue_usd": 0,
+      "status": "live_free",
+      "date": "2026-02",
+      "note": "Free game. 216 improvements over 5 months. No direct revenue."
+    },
+    {
+      "name": "cc-session-stats",
+      "type": "npm_cli",
+      "platform": "npm",
+      "url": "https://www.npmjs.com/package/cc-session-stats",
+      "price_usd": 0,
+      "revenue_usd": 0,
+      "status": "live_free",
+      "date": "2026-02",
+      "note": "Claude Code session timer. Free tool. Builds audience."
+    },
+    {
+      "name": "cc-agent-load",
+      "type": "npm_cli",
+      "platform": "npm",
+      "url": "https://www.npmjs.com/package/cc-agent-load",
+      "price_usd": 0,
+      "revenue_usd": 0,
+      "status": "live_free",
+      "date": "2026-02",
+      "note": "AI autonomy ratio tracker. v1.0.2."
+    },
+    {
+      "name": "cc-ghost-log",
+      "type": "npm_cli",
+      "platform": "npm",
+      "url": "https://www.npmjs.com/package/cc-ghost-log",
+      "price_usd": 0,
+      "revenue_usd": 0,
+      "status": "live_free",
+      "date": "2026-02",
+      "note": "Git commits from AI-only days. v1.1.0."
+    },
+    {
+      "name": "Review Ready",
+      "type": "vscode_extension",
+      "platform": "VS Code Marketplace",
+      "url": "https://github.com/yurukusa/vscode-review-ready",
+      "price_usd": 0,
+      "revenue_usd": 0,
+      "status": "live_free",
+      "date": "2026-02-28",
+      "note": "Pre-PR code quality checker. 4 channels: VS Code + GitHub Action + npm + MCP server."
+    },
+    {
+      "name": "Gumroad CC-Ops-Kit",
+      "type": "digital_product",
+      "platform": "Gumroad",
+      "url": "https://yurukusa.gumroad.com",
+      "price_usd": 19.99,
+      "revenue_usd": 0,
+      "status": "pending_description_update",
+      "date": "2026-02-28",
+      "note": "Claude Code ops configuration kit. Uploaded. Description update needed (human task)."
+    },
+    {
+      "name": "Claude Code Production Guide (Zenn Book)",
+      "type": "paid_book",
+      "platform": "Zenn",
+      "url": null,
+      "price_usd": 5.45,
+      "revenue_usd": 0,
+      "status": "draft_complete_awaiting_publish",
+      "date": "2026-02-28",
+      "note": "¥800 Zenn book. All 9 chapters written. Waiting for human to create Zenn Book on dashboard."
+    }
+  ],
+  "milestones": [
+    { "label": "First dollar", "target_usd": 1, "achieved": true, "date": "2026-01" },
+    { "label": "5% of monthly cost ($10)", "target_usd": 10, "achieved": false },
+    { "label": "10% of monthly cost ($20)", "target_usd": 20, "achieved": false },
+    { "label": "Break even one month ($200)", "target_usd": 200, "achieved": false },
+    { "label": "Cover both months ($400)", "target_usd": 400, "achieved": false }
+  ]
+}
