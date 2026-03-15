@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Earns Its Keep — Live P&L Tracker</title>
   <meta name="description" content="Can an AI pay for itself? Public accountability dashboard tracking costs vs. revenue from an autonomous AI agent experiment.">
-  <meta property="og:title" content="AI Earns Its Keep — $4.99 earned, $400 spent">
+  <meta property="og:title" content="AI Earns Its Keep — $12.32 earned, $600 spent">
   <meta property="og:description" content="I gave an AI a $200/month budget and told it to earn money. Here's the live P&L.">
   <link rel="canonical" href="https://yurukusa.github.io/ai-earns-its-keep/">
 <script type="application/ld+json">
@@ -103,36 +103,36 @@
 <div class="container">
   <div class="exp-badge">
     <span class="exp-dot"></span>
-    LIVE EXPERIMENT · UPDATED 2026-03-01
+    LIVE EXPERIMENT · UPDATED 2026-03-15
   </div>
 
   <h1>
-    <span class="cost">$400</span> spent.<br>
-    <span class="revenue">$4.99</span> earned.
+    <span class="cost">$600</span> spent.<br>
+    <span class="revenue">$12.32</span> earned.
   </h1>
   <p class="subtitle">I gave an AI a $200/month subscription and told it to earn its own keep. This is the live P&L.</p>
-  <p class="updated">Started: January 2026 · Month 2 of the experiment</p>
+  <p class="updated">Started: January 2026 · Month 3 of the experiment</p>
 
   <!-- KPIs -->
   <div class="kpi-strip">
     <div class="kpi">
       <div class="kpi-label">Total Cost</div>
-      <div class="kpi-value red">$400</div>
-      <div class="kpi-sub">2 months × $200</div>
+      <div class="kpi-value red">$600</div>
+      <div class="kpi-sub">3 months × $200</div>
     </div>
     <div class="kpi">
       <div class="kpi-label">Total Revenue</div>
-      <div class="kpi-value green">$4.99</div>
+      <div class="kpi-value green">$12.32</div>
       <div class="kpi-sub">Real money received</div>
     </div>
     <div class="kpi">
       <div class="kpi-label">Deficit</div>
-      <div class="kpi-value red">$395</div>
+      <div class="kpi-value red">$588</div>
       <div class="kpi-sub">Still need to earn this</div>
     </div>
     <div class="kpi">
       <div class="kpi-label">ROI</div>
-      <div class="kpi-value yellow">1.2%</div>
+      <div class="kpi-value yellow">2.1%</div>
       <div class="kpi-sub">Of costs recovered</div>
     </div>
   </div>
@@ -142,14 +142,14 @@
     <div class="race-title">The Race: Revenue vs. Cost</div>
     <div class="race-bar-wrap">
       <div class="race-bar-bg">
-        <div class="race-bar-fill" style="width: 1.25%">$4.99</div>
+        <div class="race-bar-fill" style="width: 2.1%">$12.32</div>
       </div>
     </div>
     <div class="race-labels">
       <span>$0</span>
-      <span>Break-even: $400</span>
+      <span>Break-even: $600</span>
     </div>
-    <p class="race-note">1.25% of costs recovered. Monthly cost = $200. At current pace, break-even would take decades. Something needs to change.</p>
+    <p class="race-note">2.1% of costs recovered. Monthly cost = $200. At current pace, break-even is years away. Funnel optimization in progress.</p>
 
     <div class="milestone-list" id="milestones"></div>
   </div>
@@ -177,16 +177,17 @@
 <script>
 const data = {
   products: [
-    { name: "Azure Flame", type: "game", platform: "itch.io", icon: "🎮", revenue: 2.00, status: "live", note: "3 downloads (2 test)", url: "https://yurukusa.itch.io/azure-flame" },
+    { name: "Azure Flame", type: "game", platform: "itch.io", icon: "🎮", revenue: 4.00, status: "live", note: "2 sales", url: "https://yurukusa.itch.io/azure-flame" },
     { name: "PromptBase Prompts", type: "prompt", platform: "PromptBase", icon: "💬", revenue: 2.99, status: "live", note: "Prompt templates for Claude" },
+    { name: "Claude Code Production Guide", type: "book", platform: "Zenn Book (¥800)", icon: "📖", revenue: 5.33, status: "live", note: "9 chapters. 1 sale.", url: "https://zenn.dev/yurukusa/books/6076c23b1cb18b" },
+    { name: "CC-Ops-Kit v3.0", type: "guide", platform: "Gumroad ($19)", icon: "📦", revenue: 0, status: "live", note: "12 hooks + 3 tools + install.sh. 61 views, 0 sales.", url: "https://yurukusa.gumroad.com/l/pkbbl" },
     { name: "Spell Cascade", type: "game", platform: "itch.io (free)", icon: "🎯", revenue: 0, status: "free", note: "216 improvements, 5 months. Free.", url: "https://yurukusa.itch.io/spell-cascade" },
-    { name: "CC-Ops-Kit v2.0", type: "guide", platform: "Gumroad ($19)", icon: "📦", revenue: 0, status: "pending", note: "Production hooks + templates for autonomous Claude Code. Live." },
-    { name: "Claude Code Production Guide", type: "book", platform: "Zenn Book (¥800)", icon: "📖", revenue: 0, status: "draft", note: "All 9 chapters written. Awaiting human to publish on Zenn dashboard." },
-    { name: "Review Ready", type: "tool", platform: "npm + VS Code + MCP", icon: "✓", revenue: 0, status: "free", note: "Pre-PR checker. 4 distribution channels.", url: "https://github.com/yurukusa/vscode-review-ready" },
-    { name: "cc-toolkit (30 tools)", type: "tools", platform: "npm + GitHub Pages", icon: "🔧", revenue: 0, status: "free", note: "30 free tools: session stats, ghost days, achievements, score, predict, etc.", url: "https://yurukusa.github.io/cc-toolkit/" },
+    { name: "cc-toolkit (100+ tools)", type: "tools", platform: "npm + GitHub Pages", icon: "🔧", revenue: 0, status: "free", note: "100+ free tools. 3000+ npm DL/month.", url: "https://yurukusa.github.io/cc-toolkit/" },
+    { name: "dev-toolkit (440 tools)", type: "tools", platform: "GitHub Pages", icon: "🛠", revenue: 0, status: "free", note: "440 browser-based dev tools.", url: "https://yurukusa.github.io/dev-toolkit/" },
   ],
   milestones: [
     { label: "First dollar earned", target: 1, achieved: true },
+    { label: "$10 earned", target: 10, achieved: true },
     { label: "10% of monthly cost ($20)", target: 20, achieved: false },
     { label: "50% of monthly cost ($100)", target: 100, achieved: false },
     { label: "Break even one month ($200)", target: 200, achieved: false },
